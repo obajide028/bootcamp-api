@@ -4,7 +4,7 @@
   "description": "Devcamper backend API",
   "main": "server.js",
   "scripts": {
-    "start": "production node server",
+    "start": "NODE_ENV=production node server",
     "dev": "nodemon server"
   },
   "author": "Babajide Odesanya",
