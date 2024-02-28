@@ -11,15 +11,13 @@ exports.register = asyncHandler(async(req, res, next) => {
 
       // create user
     const user = await User.create({name, email, password, role});
-
-    
-    
+ 
     sendTokenResponse(user, 200, res);
 });
 
 
-//@desc     Register user
-// @route   GET /api/v1/auth/register
+//@desc     Login user
+// @route   POST /api/v1/auth/register
 // @access  Public
 exports.login = asyncHandler(async(req, res, next) => {
     const { email, password } = req.body ;
@@ -45,6 +43,15 @@ exports.login = asyncHandler(async(req, res, next) => {
     sendTokenResponse(user, 200, res);
 });
 
+//@desc     Get current logged in user
+// @route   POST /api/v1/auth/me
+// @access  Private
+exports.getMe = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+
+  sendTokenResponse(user, 200,)
+  });
+
 
 // Get token from model, create cookie and send response
 const sendTokenResponse = (user, statusCode, res) => {
@@ -69,14 +76,3 @@ const sendTokenResponse = (user, statusCode, res) => {
    })
 };
 
-//@desc     Get current logged in user
-// @route   POST /api/v1/auth/me
-// @access  Private
-exports.getMe = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.user.id);
-
-  res.status(200).json({
-    success: true,
-    data: user
-  });
-});
