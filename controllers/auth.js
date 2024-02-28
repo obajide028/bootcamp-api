@@ -11,15 +11,13 @@ exports.register = asyncHandler(async(req, res, next) => {
 
       // create user
     const user = await User.create({name, email, password, role});
-
-    
     
     sendTokenResponse(user, 200, res);
 });
 
 
-//@desc     Register user
-// @route   GET /api/v1/auth/register
+//@desc     Login user
+// @route   POST /api/v1/auth/register
 // @access  Public
 exports.login = asyncHandler(async(req, res, next) => {
     const { email, password } = req.body ;
@@ -66,17 +64,20 @@ const sendTokenResponse = (user, statusCode, res) => {
    .json({
     success: true,
     token
-   })
+   });
 };
+
+
 
 //@desc     Get current logged in user
 // @route   POST /api/v1/auth/me
 // @access  Private
-exports.getMe = asyncHandler(async (req, res, next) => {
+exports.getMe = asyncHandler(async(req, res, next) => {
   const user = await User.findById(req.user.id);
 
-  res.status(200).json({
-    success: true,
-    data: user
-  });
+if(!user){
+  return next(new ErrorResponse('User not found', 404));
+}
+
+  res.status(200).json({ success: true, data: user});
 });
