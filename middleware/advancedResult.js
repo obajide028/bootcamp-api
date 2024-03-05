@@ -1,4 +1,4 @@
-const adancedResults = (model, populate) => async (req, res, next) => {
+const advancedResult = (model, populate) => async (req, res, next) => {
     let query;
     
     // Copy req.query
@@ -9,7 +9,6 @@ const adancedResults = (model, populate) => async (req, res, next) => {
   
      // Loop over removeFields and delete them from reqQuery
      removeFields.forEach(param => delete reqQuery[param]);
-  
   
      // Create query String
      let queryStr = JSON.stringify(reqQuery);
@@ -77,4 +76,4 @@ const adancedResults = (model, populate) => async (req, res, next) => {
     next();
 };
 
-module.exports = adancedResults;
+module.exports = advancedResult;
