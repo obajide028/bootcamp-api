@@ -22,7 +22,7 @@ exports.getUser = asyncHandler(async(req, res, next) => {
  });
 
  //@desc    Create user
-// @route   POST /api/v1/auth/users/:id
+// @route   POST /api/v1/auth/users
 // @access  Private/Admin
 exports.createUser = asyncHandler(async(req, res, next) => {
    const user = await User.create(req.body);
